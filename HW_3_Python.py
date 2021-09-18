@@ -2,22 +2,14 @@
 1. Реализовать функцию, принимающую два числа (позиционные аргументы) и выполняющую их деление. Числа запрашивать у
 пользователя, предусмотреть обработку ситуации деления на ноль.
 """
-# определиться с try-except
 
-
-#
-# def foo():
-#     try:
-#         a = float(input('Введите число a: '))
-#         b = float(input('Введите число b: '))
-#     except ZeroDivisionError:
-#         # return
-#         return print("На ноль делить нельзя!")
-#     result = a/b
-#     return result
-
-# x = foo()
-# print(x)
+def foo():
+    a = float(input('Введите число a: '))
+    b = float(input('Введите число b: '))
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return "На ноль делить нельзя!"
 
 """
 2. Реализовать функцию, принимающую несколько параметров, описывающих данные пользователя: имя, фамилия, год рождения, 
@@ -25,19 +17,21 @@
 о пользователе одной строкой.
 """
 
-# def user(name="Оля", surname="Мухина", year="1812", city="Город", email="email", telephone="112"):
-#     return print(f'Вас зовут {name} {surname}, вы родились в {year} году и живете в городе {city}. Вас можно найти по '
-#                  f'email {email} и по телефону {telephone}')
+def user(**kwargs):
+    return f"Вас зовут {kwargs['name']} {kwargs['surname']}, вы родились в {kwargs['year']} году и живете в городе " \
+           f"{kwargs['city']}. Вас можно найти по email {kwargs['email']} и по телефону {kwargs['telephone']}"
+
+print(user(name="Оля", surname="Мухина", year="1812", city="Город", email="email", telephone="112"))
 
 """
 3. Реализовать функцию my_func(), которая принимает три позиционных аргумента, и возвращает сумму наибольших двух 
 аргументов.
 """
 
-# def my_funk(first, second, third):
-#     my_list = [first, second, third]
-#     my_list.remove(min(my_list))
-#     return sum(my_list)
+def my_funk(first, second, third):
+    my_list = [first, second, third]
+    my_list.remove(min(my_list))
+    return sum(my_list)
 
 
 """
@@ -48,11 +42,25 @@
 Второй — более сложная реализация без оператора **, предусматривающая использование цикла.
 """
 
-#не решила!!!!
+
+def my_funk(x, y):
+    return x**y
 
 
-# def my_funk(x, y):
-#     return
+def my_funk(x, y):
+    if x <= 0:
+        return
+    elif y == 0:
+        return 1
+    elif y > 0:
+        return
+    else:
+        i = 1
+        result = 1 / x
+        while i < abs(y):
+            result = result * (1 / x)
+            i += 1
+        return result
 
 """
 5. Программа запрашивает у пользователя строку чисел, разделенных пробелом. При нажатии Enter должна выводиться сумма 
@@ -62,16 +70,30 @@
 полученной ранее сумме и после этого завершить программу.
 """
 
-# пока неправильно!!!!!!
+
+def sum_string(user_string):
+    user_list = user_string.split()
+    user_sum = 0
+    for i in user_list:
+        if i:
+            try:
+                if i == "N":
+                    return user_sum, False
+                else:
+                    user_sum += float(i)
+            except ValueError:
+                continue
+    return user_sum, True
 
 
-# def my_sum():
-#     my_list = [int(input('Введите числа, разделенные пробелами:')).split(' ')]
-#     return my_list
-#
-# a = my_sum()
-# print(a)
-
+continue_flag = True
+result = 0
+while continue_flag:
+    user_string = input('Введите числа через пробел. Для остановки введите N: ')
+    current_sum, continue_flag = sum_string(user_string)
+    result += current_sum
+    print("Промежуточная сумма: ", result)
+print("Результат: ", result)
 
 """
 6. Реализовать функцию int_func(), принимающую слово из маленьких латинских букв и возвращающую его же, но с прописной 
@@ -81,10 +103,17 @@
 Необходимо использовать написанную ранее функцию int_func().
 """
 
-# def int_funk(word):
-#     word = str(word).capitalize()
-#     return word
-#
+def int_funk(word):
+    word = str(word).capitalize()
+    return word
+
+user_string = input("Введите строку слов, разделенных пробелами: ")
+user_list = user_string.split()
+result_list = []
+for word in user_list:
+    result_list.append(int_funk(word))
+print(" ".join(result_list))
+
 # def title_func(text):
 #     text = str(text).title()
 #     return text
